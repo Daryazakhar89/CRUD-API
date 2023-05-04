@@ -1,11 +1,12 @@
 {
-  "name": "crud-api",
+  "name": "CRUD-API",
   "version": "1.0.0",
-  "description": "",
-  "main": "main.js",
+  "description": "CRUD-API",
+  "main": "src/main.js",
   "type": "module",
   "scripts": {
-    "start:dev": "nodemon --ignore **/*.json ./src/main.js",
+    "start:dev": "webpack --mode=development && nodemon src/main.js",
+    "start:prod": "webpack --mode=production ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,9 +22,11 @@
   "devDependencies": {
     "cross-env": "^7.0.3",
     "eslint": "^8.39.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
     "nodemon": "^2.0.22",
     "prettier": "^2.8.8",
-    "webpack": "^5.81.0",
+    "webpack": "^5.82.0",
     "webpack-cli": "^5.0.2"
   },
   "dependencies": {
