@@ -5,9 +5,9 @@
   "main": "src/main.js",
   "type": "module",
   "scripts": {
-    "start:dev": "webpack --mode=development && nodemon src/index.js",
-    "start:prod": "webpack --mode=production",
-    "start:multi": "webpack --mode=development && nodemon src/balancer.js",
+    "start:dev": "cross-env webpack --mode=development && nodemon src/index.js",
+    "start:prod": "cross-env webpack --mode=production",
+    "start:multi": "cross-env webpack --mode=development && nodemon src/balancer.js",
     "test": "mocha src/test/test.js"
   },
   "repository": {
