@@ -13,6 +13,7 @@ const serverErrorHandler = (res) => {
 
 export default async () => {
   const responseHandler = async (req, res) => {
+    console.log("Worker handled the request on port: " + PORT);
     try {
       await userRouter.handleRequest(req, res);
     } catch (err) {
