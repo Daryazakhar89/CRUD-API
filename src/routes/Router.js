@@ -1,5 +1,5 @@
 export default class Router {
-  static httpMethodsWithBody = ["POST"];
+  static httpMethodsWithBody = ["POST", "PUT"];
 
   requests = {
     GET: {},
@@ -16,6 +16,7 @@ export default class Router {
     if (handler) {
       await this.enrichRequestWithBodyIfRequired(req);
 
+      res.setHeader('Content-Type', 'application/json');
       return handler(req, res);
     } else {
       res.statusCode = 404;

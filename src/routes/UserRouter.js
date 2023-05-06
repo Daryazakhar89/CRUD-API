@@ -4,7 +4,6 @@ import {
   version as uuidVersion,
 } from "uuid";
 
-
 import Router from "./Router.js";
 import validator from "./Validator.js";
 import userDB from "../db/user.js";
@@ -16,7 +15,7 @@ const uuidValidateV4 = (res, uuid) => {
 
   if (!isValid) {
     res.statusCode = 400;
-    res.write("The user id is not valid uuid");
+    res.write(JSON.stringify({ message: "The user id is not valid uuid"}));
     res.end();
   }
 
@@ -24,8 +23,8 @@ const uuidValidateV4 = (res, uuid) => {
 };
 
 router.get("/api/users", async (req, res) => {
-  res.statusCode = 200;
   res.write(JSON.stringify(await userDB.getUsers()));
+  res.statusCode = 200;
   res.end();
 });
 
@@ -35,9 +34,10 @@ router.get("/api/users/{userId}", async (req, res) => {
 
   if (!user) {
     res.statusCode = 404;
-    res.write("The user is not found");
+    res.write(JSON.stringify({ message: "The user is not found"}));
   } else {
     res.write(user);
+    res.statusCode = 200;
   }
   res.end();
 });
@@ -47,10 +47,10 @@ router.post("/api/users", async (req, res) => {
 
   if (!validator.isUserDataValid(body)) {
     res.statusCode = 400;
-    res.write("Invalid data for request");
+    res.write(JSON.stringify({ message: "Invalid data for request" }));
     res.end();
     return;
-  };
+  }
 
   const user = {
     id: uuidv4(),
@@ -68,50 +68,49 @@ router.post("/api/users", async (req, res) => {
 router.put("/api/users/{userId}", async (req, res) => {
   const { userId } = req.parameters;
   const body = req.body;
-  const isUserExists = await userDB.getUserById(userId);
+  const user = await userDB.getUserById(userId);
 
   if (!uuidValidateV4(res, userId)) {
     return;
   }
 
-  if (isUserExists) {
-
+  if (user) {
     if (!validator.isUserDataValid(body)) {
       res.statusCode = 400;
-      res.write("Invalid data for request");
+      res.write(JSON.stringify({ message: "Invalid data for request" }));
       res.end();
       return;
-    };
+    }
 
-    await userDB.updateUser(userId, body);
+    const updatedUser = await userDB.updateUser(userId, body);
 
     res.statusCode = 200;
-    res.end(JSON.stringify(isUserExists));
+    res.write(JSON.stringify(updatedUser));
   } else {
     res.statusCode = 404;
-    res.write("The user is not found");
+    res.write(JSON.stringify({ message: "The user is not found" }));
   }
   res.end();
 });
 
 router.delete("/api/users/{userId}", async (req, res) => {
-    const { userId } = req.parameters;
+  const { userId } = req.parameters;
 
-    if (!uuidValidateV4(res, userId)) {
-      return;
-    }
+  if (!uuidValidateV4(res, userId)) {
+    return;
+  }
 
-    const deletedUser = await userDB.deleteUser(userId);
+  const deletedUser = await userDB.deleteUser(userId);
 
-    if (deletedUser) {
-      res.statusCode = 204;
-      res.write("The user has been deleted");
-    } else {
-      res.statusCode = 404;
-      res.write("The user is not found");
-    }
+  if (deletedUser) {
+    res.statusCode = 204;
+    res.write(JSON.stringify({ message: "The user has been deleted" }));
+  } else {
+    res.statusCode = 404;
+    res.write(JSON.stringify({ message: "The user is not found" }));
+  }
 
-    res.end();
+  res.end();
 });
 
 export default router;

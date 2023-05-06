@@ -13,6 +13,9 @@ const USERS = [
   },
 ];
 
+// check 500 Internal server error
+// const getUsers = async () => { throw new Error("test error handling") };
+
 const getUsers = async () => USERS;
 
 const getUserById = async (userId) => USERS.find((user) => user.id === userId);
@@ -25,8 +28,12 @@ const addUser = async (user) => {
 
 const updateUser = async (userId, data) => {
   let userToUpdate = await getUserById(userId);
-  
-  return Object.assign(userToUpdate, data);
+
+  return Object.assign(userToUpdate, {
+    userName: data.userName,
+    age: data.age,
+    hobbies: data.hobbies
+  });
 };
 
 const deleteUser = async (userId) => {
