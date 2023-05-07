@@ -14,16 +14,20 @@ npm install
 **Configuration**
 
 Scripts
+Run application in development mode
 
 ```sh
 npm run start:dev
 ```
+Run application in production mode
 ```sh
 npm run start:prod
 ```
+Run application in multi mode
 ```sh
 npm run start:multi
 ```
+Run tests
 ```sh
 npm run test
 ```

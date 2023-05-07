@@ -12,6 +12,7 @@ const isProduction = NODE_ENV;
 
 const webPackConfig = {
   entry: "./src/main.js",
+  target: "node",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
@@ -19,14 +20,6 @@ const webPackConfig = {
   devServer: {
     open: true,
     host: "localhost",
-  },
-  resolve: {
-    fallback: {
-        "path": false,
-        "os": false,
-        "http": false,
-        "fs": false
-    },
   },
 };
 
