@@ -1,19 +1,6 @@
-process.USERS = [
-  {
-    id: "b960c3b6-4653-415a-b9d8-8aa23d9fa35b",
-    userName: "John",
-    age: "10",
-    hobbies: "footbal",
-  },
-  {
-    id: "109156be-c4fb-41ea-b1b4-efe1671c5836",
-    userName: "Alex",
-    age: "15",
-    hobbies: "footbal",
-  },
-];
+process.USERS = [];
 
-// check 500 Internal server error
+// check 500 status code Internal server error
 // const getUsers = async () => { throw new Error("test error handling") };
 
 const getUsers = async () => process.USERS;
