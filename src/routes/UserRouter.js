@@ -32,6 +32,10 @@ router.get("/api/users/{userId}", async (req, res) => {
   const { userId } = req.parameters;
   const user = JSON.stringify(await userDB.getUserById(userId));
 
+  if (!uuidValidateV4(res, userId)) {
+    return;
+  }
+
   if (!user) {
     res.statusCode = 404;
     res.write(JSON.stringify({ message: "The user is not found"}));
@@ -54,7 +58,7 @@ router.post("/api/users", async (req, res) => {
 
   const user = {
     id: uuidv4(),
-    userName: body.userName,
+    username: body.username,
     age: body.age,
     hobbies: body.hobbies,
   };

@@ -28,7 +28,7 @@ describe("Scenario 1: testing CRUD API in valid cases", function () {
     request(server)
       .post("/api/users")
       .send({
-        userName: "Alex",
+        username: "Alex",
         age: 25,
         hobbies: ["football"],
       })
@@ -45,7 +45,7 @@ describe("Scenario 1: testing CRUD API in valid cases", function () {
         const isUserExist = users.some((user) => {
           return (
             user.age === 25 &&
-            user.userName === "Alex" &&
+            user.username === "Alex" &&
             JSON.stringify(user.hobbies) === JSON.stringify(["football"])
           );
         });
@@ -94,11 +94,11 @@ describe("Scenario 2: testing CRUD API in invalid cases, status code 400", funct
     request(server).post("/api/users").send({}).expect(400, done);
   });
 
-  it("should return status code 400 if we send invalid userName", function (done) {
+  it("should return status code 400 if we send invalid username", function (done) {
     request(server)
       .post("/api/users")
       .send({
-        userName: 1,
+        username: 1,
         age: 25,
         hobbies: ["football"],
       })
@@ -109,7 +109,7 @@ describe("Scenario 2: testing CRUD API in invalid cases, status code 400", funct
     request(server)
       .post("/api/users")
       .send({
-        userName: 1,
+        username: 1,
         age: 25,
       })
       .expect(400, done);

@@ -17,7 +17,7 @@ const updateUser = async (userId, data) => {
   let userToUpdate = await getUserById(userId);
 
   return Object.assign(userToUpdate, {
-    userName: data.userName,
+    username: data.username,
     age: data.age,
     hobbies: data.hobbies
   });
