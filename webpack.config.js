@@ -11,11 +11,16 @@ const __dirname = dirname(__filename);
 const isProduction = NODE_ENV;
 
 const webPackConfig = {
-  entry: "./src/main.js",
+  entry: "./src/index.js",
   target: "node",
+  experiments: {
+    outputModule: true,
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
+    scriptType: 'module',
+    chunkFormat: 'module',
   },
   devServer: {
     open: true,
