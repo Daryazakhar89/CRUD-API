@@ -9,7 +9,10 @@ https://github.com/Daryazakhar89/CRUD-API.git
 ```sh
 npm install
 ```
-
+**Rename .env.sample to .env**
+```sh
+.env.sample => .env
+```
 
 **Configuration**
 
